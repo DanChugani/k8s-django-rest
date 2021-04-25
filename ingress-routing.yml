@@ -1,16 +1,17 @@
+# Add ingress routing rule to the k8s-service which will allow traffic externally
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: k8s-ingress-routing
-  namespace: k8s-ns #ns-ingress
+  namespace: k8s-ns 
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/rewrite-target: /$1  # allows for traffic to be redirected
 spec:
   rules:
-  - host: ingress-k8s.canadacentral.cloudapp.azure.com #ingress-k8s.eastus.cloudapp.azure.com
+  - host: ingress-k8s.canadacentral.cloudapp.azure.com 
     http:
       paths:
       - backend:

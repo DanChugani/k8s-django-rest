@@ -1,3 +1,4 @@
+# Create Deployment using image from Azure Container Repository
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,12 +21,8 @@ spec:
           image: k8singress.azurecr.io/k8s-windows:latest
           ports:
           - containerPort: 8000
-        #  env:
-         #   - name: HOST_IP
-          #    valueFrom:
-           #     fieldRef:
-            #      fieldPath: status.hostIP
 ---
+# Create Service on internal IP 
 apiVersion: v1
 kind: Service
 metadata:
