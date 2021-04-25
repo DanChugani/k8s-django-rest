@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-web-app
+  labels:
+    app: k8s-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: k8s-web
+  template:
+    metadata:
+      labels:
+        app: k8s-web
+    spec:
+      containers:
+        - name: k8s-web-container
+          imagePullPolicy: Always
+          image: k8singress.azurecr.io/k8s-windows:latest
+          ports:
+          - containerPort: 8000
+        #  env:
+         #   - name: HOST_IP
+          #    valueFrom:
+           #     fieldRef:
+            #      fieldPath: status.hostIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8000
+    targetPort: 8000
+  selector:
+    app: k8s-web
